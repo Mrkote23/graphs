@@ -123,6 +123,132 @@ void Otoshdestvlenie(int** mac, int o) {
 
 }
 
+void Styagivanie(int** mac1, int o1) {
+
+
+	printf("Стягивание ребра\n\n");
+
+	int v1, v2;
+	int Pr = 0;
+	while (Pr == 0) {
+		printf("Введите первую вершину для отождествления\n");
+		scanf("%d", &v1);
+		printf("Введите вторую вершину для отождествления\n");
+		scanf("%d", &v2);
+
+
+		if (((v2 != v1 + 1) || (v1 != v2 - 1)) && ((v1 != v2 + 1) || (v2 != v1 - 1))) {
+			printf("Стягивание ребра проводится только над смежными вершинами\n");
+		}
+
+		else {
+			Pr++;
+		}
+
+	}
+
+	for (int j = 0; j < o1; j++) {
+
+		mac1[v2][j] = (mac1[v1][j] + mac1[v2][j]);
+		if (mac1[v2][j] == 2) {
+			mac1[v2][j] = 1;
+		}
+
+
+	}
+
+	if (v2 <= (o1 / 2)) {
+
+		for (int i = 0; i < o1; i++) {
+
+			for (int j = 0; j < o1; j++) {
+
+				mac1[j][i] = mac1[i][j];
+				if (i == j) { mac1[i][j] = 0; }
+
+
+			}
+		}
+
+	}
+
+	else {
+
+		for (int i = o1 - 1; i >= 0; i--) {
+
+			for (int j = o1 - 1; j >= 0; j--) {
+
+				mac1[j][i] = mac1[i][j];
+				if (i == j) { mac1[i][j] = 0; }
+
+			}
+		}
+
+	}
+
+
+
+	int** massa3 = (int**)malloc((o1) * sizeof(int*));
+	for (int i = 0; i < o1; i++) {
+		massa3[i] = (int*)malloc((o1) * sizeof(int));
+	}
+
+	int** massa4 = (int**)malloc((o1) * sizeof(int*));
+	for (int i = 0; i < o1 - 1; i++) {
+		massa4[i] = (int*)malloc((o1) * sizeof(int));
+	}
+
+
+	for (int i = 0; i < o1; i++) {
+
+		for (int j = 0; j < o1; j++) {
+
+			if (i == v1) {
+				break;
+			}
+			if (j == v1) {
+				continue;
+			}
+
+			massa3[i][j] = mac1[i][j];
+
+		}
+
+	}
+
+	int k = 0, l = 0, i = 0, j = 0;
+
+
+	for (i = 0; i < o1; i++) {
+
+		for (j = 0; j < o1; j++) {
+
+
+
+			if (k >= (o1 - 1)) {
+				l++;
+				k = 0;
+			}
+			if (massa3[i][j] >= 0) {
+				massa4[l][k] = massa3[i][j];
+				k++;
+
+			}
+		}
+	}
+
+	printf("\n"); printf("\n"); printf("\n");
+	for (int i = 0; i < o1 - 1; i++) {
+
+		for (int j = 0; j < o1 - 1; j++) {
+
+			printf("%d  ", massa4[i][j]);
+
+		}
+		printf("\n");
+	}
+
+}
 
 
 void main() {
@@ -286,6 +412,10 @@ void main() {
 
 		if (variant == 1) {
 			Otoshdestvlenie(massave, n);
+		}
+
+		if (variant == 2) {
+			Styagivanie(massave1, n);
 		}
 
 
