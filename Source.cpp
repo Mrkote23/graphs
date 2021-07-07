@@ -431,6 +431,116 @@ void Peresechenie(int** mac3, int** mac4, int men, int bol) {
 	printf("\n\n\n");
 }
 
+void obedenenie(int** mac5, int** mac6, int men, int bol) {
+
+
+	printf("Объеденение графов:\n\n");
+
+	int** massa7 = (int**)malloc((bol) * sizeof(int*));
+	for (int i = 0; i < bol; i++) {
+		massa7[i] = (int*)malloc((bol) * sizeof(int));
+	}
+
+
+	for (int i = 0; i < (bol); i++) {
+
+		for (int j = 0; j < (bol); j++) {
+
+			massa7[i][j] = mac6[i][j];
+		}
+	}
+
+
+	for (int i = 0; i < (men); i++) {
+
+		for (int j = 0; j < (men); j++) {
+
+			if ((mac5[i][j] == 1) || (mac6[i][j] == 1)) {
+				massa7[i][j] = 1;
+			}
+			else {
+				massa7[i][j] = 0;
+			}
+
+
+
+
+		}
+
+	}
+
+	for (int i = 0; i < (bol); i++) {
+
+		for (int j = 0; j < (bol); j++) {
+
+
+			printf("%d  ", massa7[i][j]);
+
+
+		}
+		printf("\n");
+
+
+	}
+
+	printf("\n\n\n");
+}
+
+void Kolcevaya_summa(int** mac7, int** mac8, int men, int bol) {
+
+
+	printf("Кольцевая сумма:\n\n");
+
+	int** massa8 = (int**)malloc((bol) * sizeof(int*));
+	for (int i = 0; i < bol; i++) {
+		massa8[i] = (int*)malloc((bol) * sizeof(int));
+	}
+
+
+	for (int i = 0; i < (bol); i++) {
+
+		for (int j = 0; j < (bol); j++) {
+
+			massa8[i][j] = mac8[i][j];
+		}
+	}
+
+
+
+	for (int i = 0; i < (men); i++) {
+
+		for (int j = 0; j < (men); j++) {
+
+
+			if ((mac7[i][j] == 1) || (mac8[i][j] == 1)) {
+				massa8[i][j] = 1;
+			}
+			if ((mac7[i][j] == 1) && (mac8[i][j] == 1)) {
+				massa8[i][j] = 0;
+			}
+			if ((mac7[i][j] == 0) && (mac8[i][j] == 0)) {
+				massa8[i][j] = 0;
+			}
+
+		}
+
+	}
+
+	for (int i = 0; i < (bol); i++) {
+
+		for (int j = 0; j < (bol); j++) {
+
+
+			printf("%d  ", massa8[i][j]);
+
+		}
+		printf("\n");
+
+
+	}
+
+}
+
 
 void main() {
 
@@ -613,6 +723,27 @@ void main() {
 			}
 		}
 		
+		if (variant == 5) {
+			if (m <= n) {
+				obedenenie(mas2save1, massave4, m, n);
+
+			}
+			if (m > n) {
+				obedenenie(massave4, mas2save1, n, m);
+
+			}
+		}
+
+		if (variant == 6) {
+			if (m <= n) {
+				Kolcevaya_summa(mas2save2, massave5, m, n);
+
+			}
+			if (m > n) {
+				Kolcevaya_summa(massave5, mas2save2, n, m);
+
+			}
+		}
 
 	}
 
