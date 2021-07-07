@@ -379,6 +379,57 @@ void Rascheplenie(int** mac2, int o2) {
 	printf("\n\n\n");
 }
 
+void Peresechenie(int** mac3, int** mac4, int men, int bol) {
+
+	printf("Пересечение графов:\n\n");
+
+
+	int** massa6 = (int**)malloc((bol) * sizeof(int*));
+	for (int i = 0; i < bol; i++) {
+		massa6[i] = (int*)malloc((bol) * sizeof(int));
+	}
+
+	for (int i = 0; i < (bol); i++) {
+
+		for (int j = 0; j < (bol); j++) {
+
+			massa6[i][j] = mac4[i][j];
+		}
+	}
+
+	for (int i = 0; i < (men); i++) {
+
+		for (int j = 0; j < (men); j++) {
+
+			if ((mac3[i][j] == 1) && (mac4[i][j] == 1)) {
+				massa6[i][j] = 1;
+			}
+			else {
+				massa6[i][j] = 0;
+			}
+
+
+
+
+		}
+
+	}
+
+	for (int i = 0; i < (bol); i++) {
+
+		for (int j = 0; j < (bol); j++) {
+
+
+			printf("%d  ", massa6[i][j]);
+
+
+		}
+		printf("\n");
+
+	}
+
+	printf("\n\n\n");
+}
 
 
 void main() {
@@ -550,6 +601,16 @@ void main() {
 
 		if (variant == 3) {
 			Rascheplenie(massave2, n);
+		}
+
+		if (variant == 4) {
+			if (m <= n) {
+				Peresechenie(mas2save, massave3, m, n);
+
+			}
+			if (m > n) {
+				Peresechenie(massave3, mas2save, n, m);
+			}
 		}
 		
 
