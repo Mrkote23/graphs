@@ -250,6 +250,136 @@ void Styagivanie(int** mac1, int o1) {
 
 }
 
+void Rascheplenie(int** mac2, int o2) {
+
+	printf("Расщепление вершины:\n\n");
+
+	int Rv;
+
+	printf("\nВведите вершину для расщепления\n");
+	scanf("%d", &Rv);
+
+
+	int* tempmas1 = (int*)malloc((o2) * sizeof(int));
+	for (int j = 0; j < o2; j++) {
+
+		if (j % 2 == 1) {
+			tempmas1[j] = mac2[Rv][j];
+			mac2[Rv][j] = 0;
+			mac2[j][Rv] = 0;
+		}
+		if (j % 2 == 0) {
+			tempmas1[j] = 0;
+		}
+
+		if (j == Rv) {
+			tempmas1[j] = 1;
+		}
+
+	}
+
+
+	int** massa5 = (int**)malloc((o2 + 1) * sizeof(int*));
+	for (int i = 0; i < (o2 + 1); i++) {
+		massa5[i] = (int*)malloc((o2 + 1) * sizeof(int));
+	}
+
+	int** massaTrans = (int**)malloc((o2 + 1) * sizeof(int*));
+	for (int i = 0; i < (o2 + 1); i++) {
+		massaTrans[i] = (int*)malloc((o2 + 1) * sizeof(int));
+	}
+
+
+	for (int i = 0; i < (o2 + 1); i++) {
+
+		for (int j = 0; j < (o2 + 1); j++) {
+
+			massa5[i][j] = mac2[i][j];
+			if (i == Rv) {
+				massa5[i][j] = tempmas1[j];
+			}
+
+		}
+		if (i == Rv) {
+			for (int k = o2; k > i; k--) {
+				mac2[k] = mac2[k - 1];
+			}
+		}
+
+
+	}
+
+	printf("\n");
+
+
+	for (int i = 0; i < o2 + 1; i++) {
+
+		for (int j = 0; j < o2 + 1; j++) {
+
+			massaTrans[i][j] = massa5[j][i];
+		}
+
+	}
+
+	for (int j = 0; j < (o2 + 1); j++) {
+		tempmas1[j] = massa5[Rv][j];
+
+	}
+
+	int* tempmas2 = (int*)malloc((o2) * sizeof(int));
+	for (int i = 0; i < o2 + 1; i++) {
+		tempmas2[i] = massaTrans[Rv][i];
+	}
+
+
+	for (int i = 0; i < (o2 + 1); i++) {
+
+		for (int j = 0; j < (o2 + 1); j++) {
+
+			if (i == Rv) {
+				massaTrans[i][j] = tempmas1[j];
+			}
+		}
+		if (i == Rv) {
+			for (int k = o2; k > Rv; k--) {
+				massaTrans[k] = massaTrans[k - 1];
+			}
+		}
+
+	}
+
+	for (int i = 0; i < o2 + 1; i++) {
+		massaTrans[Rv][i] = tempmas2[i];
+	}
+
+	for (int i = 0; i < o2 + 1; i++) {
+
+		for (int j = 0; j < o2 + 1; j++) {
+
+			massa5[i][j] = massaTrans[j][i];
+
+		}
+
+	}
+
+	printf("\n");
+	for (int i = 0; i < o2 + 1; i++) {
+
+		for (int j = 0; j < o2 + 1; j++) {
+
+			if (i == j) {
+				massa5[i][j] = 0;
+			}
+			massa5[j][Rv] = massa5[Rv][j];
+			printf("%d  ", massa5[i][j]);
+		}
+		printf("\n");
+	}
+
+	printf("\n\n\n");
+}
+
+
 
 void main() {
 
@@ -418,7 +548,9 @@ void main() {
 			Styagivanie(massave1, n);
 		}
 
-
+		if (variant == 3) {
+			Rascheplenie(massave2, n);
+		}
 		
 
 	}
